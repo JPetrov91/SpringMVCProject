@@ -8,10 +8,12 @@ import org.hibernate.SessionFactory;
 import org.myproject.springmvc.model.Idea;
 import org.myproject.springmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 @EnableTransactionManagement
+@Repository
 public class IdeasDAOImpl implements IdeasDAO {
 	
 	@Autowired

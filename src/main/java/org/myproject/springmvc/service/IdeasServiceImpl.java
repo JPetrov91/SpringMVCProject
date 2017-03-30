@@ -7,7 +7,9 @@ import org.myproject.springmvc.dao.IdeasDAO;
 import org.myproject.springmvc.dto.IdeaDTO;
 import org.myproject.springmvc.model.Idea;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("ideasService")
 public class IdeasServiceImpl implements IdeasService {
 	
 	@Autowired

@@ -11,7 +11,9 @@ import org.myproject.springmvc.dao.IdeasDAO;
 import org.myproject.springmvc.dto.RegistrationUserDTO;
 import org.myproject.springmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("registrationService")
 public class RegistrationServiceImpl implements RegistrationService {
 
 	@Autowired
@@ -22,10 +24,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 		try {
 		User user = new User();
 		user.setEmail(userDTO.getLogin());
-		String salt = generateSalt(20);
-		user.setSalt(salt);
-		byte[] hashPassword = hash(salt + userDTO.getPassword());
-		user.setPassword(hashPassword);
+		//String hashPassword = userDTO.getPassword());
+		//user.setPassword(hashPassword);
 		boolean registerResult = dao.registerUser(user);
 		if (registerResult) {
 			return RegistrationStatus.OK;

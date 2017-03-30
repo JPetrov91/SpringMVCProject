@@ -26,6 +26,9 @@
             <li>
             	<a href="register"><span class="glyphicon glyphicon-user"></span>Register</a>
             </li>
+              <li>
+            	<a href="j_spring_security_logout">Exit</a>
+            </li>
         </ul>
     </div>
 </header>

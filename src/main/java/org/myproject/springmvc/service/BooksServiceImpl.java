@@ -9,7 +9,9 @@ import org.myproject.springmvc.dto.IdeaDTO;
 import org.myproject.springmvc.model.Book;
 import org.myproject.springmvc.model.Idea;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("booksService")
 public class BooksServiceImpl implements BooksService {
 	
 	@Autowired

@@ -9,14 +9,26 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserController {
 	
-	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (error != null) {
 			modelAndView.addObject("error", "Invalid username or password");
 		}
 		
-		modelAndView.setViewName("loginPage");
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin")
+	public ModelAndView admin() {
+		ModelAndView modelAndView = new ModelAndView("admin");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/user")
+	public ModelAndView user() {
+		ModelAndView modelAndView = new ModelAndView("user");
 		return modelAndView;
 	}
 

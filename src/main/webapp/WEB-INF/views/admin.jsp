@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-Hi, User
+Hi, Admin
+
 </body>
 </html>

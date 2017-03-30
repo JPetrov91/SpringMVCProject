@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -9,10 +10,10 @@
 </head>
 <body>
 
-<form method="post" action="login" class="box_login">
+<form method="post" action="${contextPath}/j_spring_security_check" class="box_login">
 	<fieldset class="boxBody">
-		<label>Username</label> <input type="text" name="user_login" value="">
-		<label>Password</label> <input type="text" name="user_password">
+		<label>Username</label> <input type="text" name="user_login" placeholder="Username" autofocus="autofocus">
+		<label>Password</label> <input type="password" name="user_password" placeholder="Password">
 	</fieldset>
 	
 	<footer>
