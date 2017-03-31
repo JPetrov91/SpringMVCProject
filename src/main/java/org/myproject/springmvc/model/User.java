@@ -1,52 +1,55 @@
 package org.myproject.springmvc.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name="account")
+@Table(name="users")
 public class User {
 	
-	//public static final String SELECT_USER_COUNT_BY_LOGIN = "select_user_count_by_login";
-	
-	public User() {
-		
-	}
-	
-	public User(String username, String password, boolean enabled) {
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-	}
-	
-	public User(String email, String password, boolean enabled, Set<UserRole> userRoles) {
-		this.username = email;
-		this.password = password;
-		this.enabled = enabled;
-		this.userRoles = userRoles;
-	}
-	
 	@Id
-	@Column(name = "username", nullable = false, unique = true, length = 45)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
+	@Column(name = "username")
 	private String username;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@Transient
+	private String confirmPassword;
+	
+	@ManyToMany
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
-	@Column(name = "password", nullable = false, length = 60)
-	private String password;
 
 	public String getPassword() {
 		return password;
@@ -55,31 +58,20 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	@Column(name = "enabled", nullable = false)
-	private boolean enabled;
 
-	public boolean isEnabled() {
-		return enabled;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
-
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
-
 }

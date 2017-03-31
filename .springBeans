@@ -7,6 +7,10 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/database-config.xml</config>
+		<config>src/main/webapp/WEB-INF/mvc-config.xml</config>
+		<config>src/main/webapp/WEB-INF/security-config.xml</config>
+		<config>src/main/webapp/WEB-INF/root-config.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

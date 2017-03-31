@@ -1,5 +1,6 @@
 package org.myproject.springmvc.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.myproject.springmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @EnableTransactionManagement
@@ -33,6 +35,16 @@ public class UserDAOImpl implements UserDAO {
 		} else {
 			return null;
 		}
+	}
+	
+	@Transactional
+	public int save(User user) {
+		Session session = sessionFactory.openSession();
+		session.saveOrUpdate(user);
+		Serializable id = session.getIdentifier(user);
+		session.flush();
+		session.close();
+		return (Integer) id;
 	}
 
 	
