@@ -10,10 +10,14 @@
 </head>
 <body>
 
-<form method="post" action="${contextPath}/j_spring_security_check" class="box_login">
+	<c:if test="${not empty msg}">
+		<span class="msg">${msg}</span>
+	</c:if>
+
+<form method="post" action="${contextPath}/login" class="box_login">
 	<fieldset class="boxBody">
-		<label>Username</label> <input type="text" name="user_login" placeholder="Username" autofocus="autofocus">
-		<label>Password</label> <input type="password" name="user_password" placeholder="Password">
+		<label>Username</label> <input type="text" name="username" placeholder="Username" autofocus="autofocus">
+		<label>Password</label> <input type="password" name="password" placeholder="Password">
 	</fieldset>
 	
 	<footer>
@@ -23,6 +27,8 @@
 	<c:if test="${not empty error}">
 		<span class="error">${error}</span>
 	</c:if>
+	
+	<input type="hidden" name="${_csrf_parameterName}" value="${_csrf_token}">
 	
 	<label for="remember_me">Remember me</label>
 	

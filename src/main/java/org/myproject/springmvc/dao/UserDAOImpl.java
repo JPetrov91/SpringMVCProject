@@ -23,7 +23,10 @@ public class UserDAOImpl implements UserDAO {
 	public User findByUsername(String username) {
 		List<User> users = new ArrayList<User>();
 		Session session = sessionFactory.openSession();
-		users = session.createQuery("from User where username=?").list();
+		users = session
+				.createQuery("from User where username=?")
+				.setParameter(0, username)
+				.list();
 		
 		if (users.size() > 0) {
 			return users.get(0);
