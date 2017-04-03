@@ -2,6 +2,11 @@ package org.myproject.springmvc.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.myproject.springmvc.model.User;
+import org.myproject.springmvc.service.SecurityService;
+import org.myproject.springmvc.service.UserService;
+import org.myproject.springmvc.validator.UserValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
@@ -9,6 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +24,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private SecurityService securityService;
+	
+	@Autowired
+	private UserValidator userValidator;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
@@ -31,6 +48,25 @@ public class UserController {
 		
 		modelAndView.setViewName("login");
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "registration", method = RequestMethod.GET)
+	public ModelAndView register() {
+		ModelAndView modelAndView = new ModelAndView("register_form");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "registrationSubmit", method = RequestMethod.POST)
+	public String register(@ModelAttribute User userFrom, BindingResult bindingResult, Model model) {
+		userValidator.validate(userFrom, bindingResult);
+		
+		if (bindingResult.hasErrors()) {
+			return "registration";
+		}
+		
+		userService.save(userFrom);
+		securityService.autologin(userFrom.getUsername(), userFrom.getConfirmPassword());
+		return "redirect:/welcome";
 	}
 	
 	private String getErrorMessage(HttpServletRequest request, String key) {

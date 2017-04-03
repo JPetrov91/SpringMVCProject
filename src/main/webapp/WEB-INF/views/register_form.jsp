@@ -5,7 +5,7 @@
 <t:layout title="User registration">
 	<h1 class="text-center text-uppercase">Register</h1>
 	<div class="jumbotron">
-		<form:form id="formRegister" modelAttribute="user" method="post" action="register_user">
+		<form:form id="formRegister" modelAttribute="userForm" method="post" action="registrationSubmit">
 			<div class="form-group">
 				<label for="emailId">E-mail</label>
 				<form:errors path="login" cssClass="form-control label-danger"></form:errors>

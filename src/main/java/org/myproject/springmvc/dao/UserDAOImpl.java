@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.myproject.springmvc.model.User;
@@ -22,19 +23,14 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public User findByUsername(String username) {
-		List<User> users = new ArrayList<User>();
 		Session session = sessionFactory.openSession();
-		users = session
-				.createQuery("from User where username=?")
-				.setParameter(0, username)
-				.list();
-		
-		if (users.size() > 0) {
-			return users.get(0);
-		} else {
-			return null;
-		}
+		List<User> users = new ArrayList<>();
+		Query query = session.createQuery("from User where username = :username");
+		query.setParameter("username", username);
+		users = query.list();
+		return users.get(0);
 	}
 	
 	@Transactional

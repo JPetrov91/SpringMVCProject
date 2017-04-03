@@ -77,14 +77,5 @@ public class IdeasDAOImpl implements IdeasDAO {
 		return true;
 	}
 
-	@Override
-	public boolean isUserExists(String login) {
-		Session session = sessionFactory.openSession();
-		Long count = (Long) session.getNamedQuery(User.SELECT_USER_COUNT_BY_LOGIN)
-				.setParameter("login", login)
-				.uniqueResult();
-		return count > 0;
-	}
-	
 
 }
