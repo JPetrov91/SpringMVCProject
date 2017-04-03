@@ -8,8 +8,8 @@
 		<form:form id="formRegister" modelAttribute="userForm" method="post" action="registrationSubmit">
 			<div class="form-group">
 				<label for="emailId">E-mail</label>
-				<form:errors path="login" cssClass="form-control label-danger"></form:errors>
-				<form:input path="login" id="emailId" cssClass="form-control"/>
+				<form:errors path="username" cssClass="form-control label-danger"></form:errors>
+				<form:input path="username" id="username" cssClass="form-control"/>
 			</div>
 			<div class="form-group">
 				<label for="passwordId">Password</label>
@@ -17,9 +17,9 @@
 				<form:input path="password" id="passwordId" cssClass="form-control"/>
 			</div>
 			<div class="form-group">
-				<label for="passwordId">Password</label>
+				<label for="passwordId">Confirm Password</label>
 				<form:errors cssClass="form-control label-danger"></form:errors>
-				<form:input path="repeatPassword" id="repeatPasswordId" cssClass="form-control"/>
+				<form:input path="confirmPassword" id="repeatPasswordId" cssClass="form-control"/>
 			</div>
 			<button type="submit" class="btn btn-success">Register</button>
 			<a href="ideas" class="danger-link">Cancel</a>

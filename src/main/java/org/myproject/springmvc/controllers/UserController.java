@@ -53,6 +53,7 @@ public class UserController {
 	@RequestMapping(value = "registration", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView modelAndView = new ModelAndView("register_form");
+		modelAndView.getModelMap().addAttribute("userForm", new User());
 		return modelAndView;
 	}
 	

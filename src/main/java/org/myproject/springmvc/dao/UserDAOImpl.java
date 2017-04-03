@@ -34,13 +34,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Transactional
-	public int save(User user) {
+	public Long save(User user) {
 		Session session = sessionFactory.openSession();
 		session.saveOrUpdate(user);
 		Serializable id = session.getIdentifier(user);
 		session.flush();
 		session.close();
-		return (Integer) id;
+		return (Long) id;
 	}
 
 	
