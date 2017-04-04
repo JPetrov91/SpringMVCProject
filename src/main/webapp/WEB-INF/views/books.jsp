@@ -9,7 +9,7 @@
 <link href="<c:url value="/assets/css/bootstrap.min.css" />" rel="stylesheet">
 <link href="<c:url value="/assets/css/styles.css" />" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
-<t:layout title="Books">
+<t:booksheader title="Books">
 <h1>Books</h1>
 <table border="2px">
 <tr>
@@ -29,4 +29,4 @@
 </table>
 
 
-</t:layout>
+</t:booksheader>

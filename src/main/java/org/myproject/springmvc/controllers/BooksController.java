@@ -21,7 +21,8 @@ public class BooksController {
 	@Qualifier(value = "booksService")
 	BooksService booksService;
 	
-	@RequestMapping(value = "/books")
+	//Method for displaying all book at page
+	@RequestMapping(value = {"/books", "/"})
 	public ModelAndView books() {
 		ModelAndView modelAndView = new ModelAndView("books");
 		List<BooksDTO> booksList = booksService.list();
@@ -29,6 +30,7 @@ public class BooksController {
 		return modelAndView;	
 	}
 	
+	//Method for getting book by id and do some things(update/delete) with it
 	@RequestMapping(value = "/book", method = RequestMethod.GET)
 	public ModelAndView book(@RequestParam int id) {
 		ModelAndView modelAndView = new ModelAndView("book");
@@ -36,6 +38,7 @@ public class BooksController {
 		return modelAndView;
 	}
 	
+	//Method for requesting a new form for adding book
 	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
 	public ModelAndView addBook() {
 		ModelAndView modelAndView = new ModelAndView("addBook");
@@ -43,6 +46,7 @@ public class BooksController {
 		return modelAndView;
 	}
 	
+	//Method for adding new book into a database
 	@RequestMapping(value = "/submitBook", method = RequestMethod.POST)
 	public ModelAndView submitBook(@ModelAttribute BooksDTO newBook) {
 		booksService.add(newBook);

@@ -1,0 +1,32 @@
+@CHARSET "ISO-8859-1";
+*{padding: 0; margin: 0;}
+header{height: 150px; background-color: #e6e6e6;}
+#login-bar {
+	float: right;
+}
+#top-wrapper{
+	border-top: 1px solid-gray;
+	border-bottom: 1px solid-gray;
+}
+#logo{
+	float: left;
+	font-size: 30px;
+}
+#logo > a {
+	color: #000;
+	text-decoration: none;
+	margin-left: 50px;
+}
+nav{float: right;
+	margin-top: 35px;
+}
+nav > ul {list-style: none;}
+nav > ul > li{float: left;}
+nav > ul > li > a {
+	display: block;
+	width: 130px;
+	font-size: 20px;
+	color: #000;
+	text-decoration: none;
+	line-height: 1.6;
+}
