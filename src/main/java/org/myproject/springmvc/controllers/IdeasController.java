@@ -22,7 +22,7 @@ public class IdeasController {
 	@Qualifier("ideasService")
 	IdeasService ideasService;
 	
-	@RequestMapping(value={"/ideas", "/"},  method=RequestMethod.GET)
+	@RequestMapping(value="/ideas",  method=RequestMethod.GET)
 	public String ideas(ModelMap map) {
 		List<IdeaDTO> list = ideasService.list();
 		map.addAttribute("list", list);

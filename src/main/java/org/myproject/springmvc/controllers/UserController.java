@@ -15,14 +15,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes("user")
 public class UserController {
 	
 	@Autowired
@@ -34,9 +37,14 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 	
+	//TODO: IMPORTANT! To figure out with this 
+	//Responds only for login function. If receives error - display it on login form(login.jsp). Also receives a request
+	//But a little unclear - where some manipulation with User model? He didnt receives user model or its going on
+	//Security??
+	//Ok. Login and password Handles Security Handler. But where data goes after that?
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
+			@RequestParam(value = "logout", required = false) String logout, HttpServletRequest request, ModelMap modelMap) {
 		ModelAndView modelAndView = new ModelAndView();
 		System.out.println(error);
 		if (error != null) {
@@ -45,11 +53,13 @@ public class UserController {
 		if (logout != null) {
 			modelAndView.addObject("msg", "You've been logged out succesfully.");
 		}
+		//modelMap.addAttribute("")
 		
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
 	
+	//Get request on registration page, and returns registration form on this page
 	@RequestMapping(value = "registration", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView modelAndView = new ModelAndView("register_form");
@@ -57,19 +67,22 @@ public class UserController {
 		return modelAndView;
 	}
 	
+	//Gets Registration form from page, when users press submit. Validate it, and if all is ok - receives data
+	// in userService ... and securityService do autologin
 	@RequestMapping(value = "registrationSubmit", method = RequestMethod.POST)
-	public String register(@ModelAttribute User userFrom, BindingResult bindingResult, Model model) {
-		userValidator.validate(userFrom, bindingResult);
+	public String register(@ModelAttribute User user, BindingResult bindingResult, Model model) {
+		userValidator.validate(user, bindingResult);
 		
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
 		
-		userService.save(userFrom);
-		securityService.autologin(userFrom.getUsername(), userFrom.getConfirmPassword());
+		userService.save(user);
+		securityService.autologin(user.getUsername(), user.getConfirmPassword());
 		return "redirect:/welcome";
 	}
 	
+	//Method for Error message on login page
 	private String getErrorMessage(HttpServletRequest request, String key) {
 		Exception exception = (Exception) request.getSession().getAttribute(key);
 		String error = "";
@@ -106,6 +119,12 @@ public class UserController {
 //			modelAndView.addObject("username", userDetails.getUsername());
 //		}
 		modelAndView.setViewName("403");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/welcome")
+	public ModelAndView welcome() {
+		ModelAndView modelAndView = new ModelAndView("welcome");
 		return modelAndView;
 	}
 

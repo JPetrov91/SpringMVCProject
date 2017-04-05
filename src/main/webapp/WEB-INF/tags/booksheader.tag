@@ -1,6 +1,7 @@
 <%@tag pageEncoding="UTF-8" description="Base layout" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@attribute name="title" type="java.lang.String" required="true"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,9 @@
 <div id = "login-bar">
 <c:choose>
 	<c:when test="${user != null}">
-		<c:out value="Hello, ${user.getUserName}"></c:out></c:when>
+		<c:out value="Hello, ${user.username}"></c:out>
+		<a href="j_spring_security_logout">Exit</a>
+		</c:when>
 		<c:otherwise>
 		Abbu-Dhabi
 		</c:otherwise>

@@ -3,28 +3,57 @@ package org.myproject.springmvc.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.myproject.springmvc.dto.BooksDTO;
+import org.myproject.springmvc.model.User;
 import org.myproject.springmvc.service.BooksService;
+import org.myproject.springmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.jdbc.Security;
+
 @Controller
+@SessionAttributes("user")
 public class BooksController {
 	
 	@Autowired
 	@Qualifier(value = "booksService")
 	BooksService booksService;
 	
+	@Autowired
+	UserService userService;
+	
 	//Method for displaying all book at page
 	@RequestMapping(value = {"/books", "/"})
-	public ModelAndView books() {
+	public ModelAndView books(HttpSession httpSession) {
 		ModelAndView modelAndView = new ModelAndView("books");
+		//Getting authentication from SecurityContext, then from auth we getting User
+		//But for properly working we need User Model. Need to convert from UserDetails to User
+		//TODO:
+		//Maybe we can create method in userDetails, which :
+		//1 - we pull out username from principal\
+		//2 - we get user from db by username
+		//3 and we create new User with auth.username, which will be our ModelMap
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			String userName = authentication.getName();
+			User user = userService.findByUsername(userName);
+			httpSession.setAttribute("user", user);
+		}
 		List<BooksDTO> booksList = booksService.list();
 		modelAndView.getModelMap().addAttribute("booksList", booksList);
 		return modelAndView;	
