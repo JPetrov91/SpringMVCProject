@@ -39,9 +39,6 @@
             <li>
             	<a href="register">Register</a>
             </li>
-              <li>
-            	<a href="j_spring_security_logout">Exit</a>
-            </li>
         </ul>
         </nav>
     </div>

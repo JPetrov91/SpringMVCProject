@@ -11,6 +11,12 @@
 </head>
 <body>
 
-<c:out value="Hi, ${user.getUsername}"></c:out>
+<c:out value="Hi, ${user.username}"></c:out>
+
+<form action="uploadFile" method="post" enctype="multipart/form-data">
+File to upload: <input type="file" name="file"><br>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+<input type="submit" value="Upload">Press here to upload a file
+</form>
 </body>
 </html>

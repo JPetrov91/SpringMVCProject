@@ -16,7 +16,7 @@
         <form-login login-page="/login" default-target-url="/books" authentication-failure-url="/login?error"
                     username-parameter="username" password-parameter="password"/>
 
-        <logout logout-success-url="/login?logout"/>
+        <logout logout-url="j_spring_security_logout" logout-success-url="/login?logout"/>
         
     </http>
 

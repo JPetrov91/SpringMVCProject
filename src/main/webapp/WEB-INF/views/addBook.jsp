@@ -8,7 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-*">
 <title>Add new Book</title>
-</head>
 <body>
 <form:form id="addBook" modelAttribute="newBook" method="post" action="submitBook">
 	Title:
@@ -22,5 +21,3 @@
 	<form:button>Save</form:button>
 </form:form>
 <span><a href="/">Back</a></span>
-</body>
-</html>
