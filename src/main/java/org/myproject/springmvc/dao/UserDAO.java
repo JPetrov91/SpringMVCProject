@@ -6,5 +6,7 @@ public interface UserDAO {
 	
 	User findByUsername(String username);
 	Long save(User user);
+	int update(User user);
+	User getById(long id);
 
 }

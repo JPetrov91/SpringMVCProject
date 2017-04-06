@@ -19,6 +19,7 @@
 <c:choose>
 	<c:when test="${user != null}">
 		<c:out value="Hello, ${user.username}"></c:out>
+		<a href="edit?id=${user.id}" title="Edit Profile">Edit Profile</a>
 		<a href="j_spring_security_logout">Exit</a>
 		</c:when>
 		<c:otherwise>

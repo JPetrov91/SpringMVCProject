@@ -1,5 +1,6 @@
 package org.myproject.springmvc.controllers;
 
+import javax.jws.WebParam.Mode;
 import javax.servlet.http.HttpServletRequest;
 
 import org.myproject.springmvc.model.User;
@@ -95,6 +96,21 @@ public class UserController {
 			error = "Something goes wrong";
 		}
 		return error;
+	}
+	
+	//Mapping for Profile Editor
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView editProfile(@RequestParam long id) {
+		ModelAndView modelAndView = new ModelAndView("editProfile");
+		User user = userService.getById(id);
+		modelAndView.getModelMap().addAttribute("editedUser", user);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/editAction")
+	public ModelAndView editAction(@ModelAttribute User editedUser) {
+		userService.update(editedUser);
+		return new ModelAndView("redirect:books");
 	}
 
 	@RequestMapping(value = "/admin")

@@ -48,6 +48,9 @@ public class BooksController {
 		//1 - we pull out username from principal\
 		//2 - we get user from db by username
 		//3 and we create new User with auth.username, which will be our ModelMap
+		
+		//Works. But only after visiting "/" page, when session gets user attribute
+		//Need to change in something way.
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			String userName = authentication.getName();

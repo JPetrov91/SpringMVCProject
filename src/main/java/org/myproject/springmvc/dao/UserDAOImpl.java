@@ -43,6 +43,26 @@ public class UserDAOImpl implements UserDAO {
 		return (Long) id;
 	}
 
+	@Override
+	@Transactional
+	public int update(User user) {
+		Session session = sessionFactory.openSession();
+		session.update(user);
+		Serializable id = session.getIdentifier(user);
+		session.flush();
+		session.close();
+		return (int) id;
+	}
+
+	@Transactional
+	@Override
+	public User getById(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		User user = (User) session.get(User.class, id);
+		System.out.println(user);
+		return user;
+	}
+
 	
 
 
