@@ -6,8 +6,6 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="<c:url value="/assets/css/bootstrap.min.css" />" rel="stylesheet">
-<link href="<c:url value="/assets/css/styles.css" />" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
 <t:booksheader title="Books">
 <h1>Books</h1>

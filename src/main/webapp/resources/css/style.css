@@ -1,32 +1,107 @@
-@CHARSET "ISO-8859-1";
-*{padding: 0; margin: 0;}
-header{height: 150px; background-color: #e6e6e6;}
-#login-bar {
-	float: right;
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+
+body {
+	background-color: #f2f2f2;
+	font-family: Lato !important;
+	font-weight: 300;
+	font-size: 16px;
+	color: #555;
+	
+	-webkit-font-smoothing: antialised;
+	-webkit-overflow-scrolling: touch;
+	
+	margin-top: 70px;
 }
-#top-wrapper{
-	border-top: 1px solid-gray;
-	border-bottom: 1px solid-gray;
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Raleway !important;
+	font-weight: 300;
+	color: #333;
 }
-#logo{
-	float: left;
-	font-size: 30px;
+
+p {
+	line-height: 28px;
+	margin-bottom: 25px;
 }
-#logo > a {
-	color: #000;
+
+.centered {
+	text-align: center;
+}
+
+a {
+	color: #f85c37;
+}
+
+a:HOVER, a:FOCUS {
+	color: #7b7b7b;
 	text-decoration: none;
-	margin-left: 50px;
+	outline: 0;
 }
-nav{float: right;
-	margin-top: 35px;
-}
-nav > ul {list-style: none;}
-nav > ul > li{float: left;}
-nav > ul > li > a {
+
+hr {
 	display: block;
-	width: 130px;
-	font-size: 20px;
-	color: #000;
-	text-decoration: none;
-	line-height: 1.6;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
 }
+
+.navbar {
+	font-weight: 800;
+	font-size: 14px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.navbar-inverse {
+	background: #2d2d2d;
+	border-color: #2d2d2d;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+	background-color: #ff7878;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #999;
+	font-weight: bolder;
+	font-size: 22px;
+	letter-spacing: 1px;
+}
+
+#headerwrap {
+	background: url(img/bgimg.jpg);
+	padding-top: 20px;
+	text-align: center;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 500px;
+	width: 100%;
+	background-size: 100%;
+	
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
