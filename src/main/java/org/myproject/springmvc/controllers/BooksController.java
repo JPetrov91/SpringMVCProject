@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.myproject.springmvc.dto.BooksDTO;
+import org.myproject.springmvc.model.Book;
 import org.myproject.springmvc.model.User;
 import org.myproject.springmvc.service.BooksService;
 import org.myproject.springmvc.service.UserService;
@@ -83,6 +84,16 @@ public class BooksController {
 	public ModelAndView submitBook(@ModelAttribute BooksDTO newBook) {
 		booksService.add(newBook);
 		return new ModelAndView("redirect:books");
+	}
+	
+	//User do request by clicking on book image. BookService takes all work for taking book from DB and converting it
+	//in correct format, controller puts it in ModelAndView. Must Work
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public ModelAndView bookProfile(@RequestParam int id) {
+		ModelAndView modelAndView = new ModelAndView("book");
+		BooksDTO book = booksService.get(id);
+		modelAndView.getModelMap().addAttribute("book", book);
+		return modelAndView;
 	}
 
 }

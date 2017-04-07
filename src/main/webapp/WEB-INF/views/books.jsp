@@ -9,22 +9,38 @@
 <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
 <t:booksheader title="Books">
 <h1>Books</h1>
-<table border="2px">
-<tr>
-<th>Id</th>
-<th>Image</th>
-<th>Title</th>
-<th>Author</th>
-</tr>
+<%-- <table border="2px"> --%>
+<%-- <tr> --%>
+<%-- <th>Id</th> --%>
+<%-- <th>Image</th> --%>
+<%-- <th>Title</th> --%>
+<%-- <th>Author</th> --%>
+<%-- </tr> --%>
+<%-- <c:forEach items="${booksList}" var="book"> --%>
+<%--         <tr> --%>
+<%-- <td><c:out value="${book.id}"/></td> --%>
+<%-- <td><img height="150" width="150" src="<c:url value="/resources/img/${book.image}"/>"/></td> --%>
+<%-- <td><c:out value="${book.title}"/></td> --%>
+<%-- <td><c:out value="${book.author}"/></td> --%>
+<%-- </tr> --%>
+<%-- </c:forEach> --%>
+<%-- </table> --%>
+
+<div class="row">
 <c:forEach items="${booksList}" var="book">
-        <tr>
-<td><c:out value="${book.id}"/></td>
-<td><img height="150" width="150" src="<c:url value="/resources/img/${book.image}"/>"/></td>
-<td><c:out value="${book.title}"/></td>
-<td><c:out value="${book.author}"/></td>
-</tr>
-</c:forEach>
-</table>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+    	<a href="profile?id=${book.id}">
+      		<img height="230" width="190" src="<c:url value="/resources/img/${book.image}"/>"/>
+        </a>
+      <div class="caption">
+        <h4><c:out value="${book.title}"/> </h4>
+        <p>...</p>
+      </div>
+    </div>
+  </div>
+  </c:forEach>
+</div>
 
 
 </t:booksheader>

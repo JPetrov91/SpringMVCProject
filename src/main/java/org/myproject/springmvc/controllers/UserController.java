@@ -1,6 +1,5 @@
 package org.myproject.springmvc.controllers;
 
-import javax.jws.WebParam.Mode;
 import javax.servlet.http.HttpServletRequest;
 
 import org.myproject.springmvc.model.User;
