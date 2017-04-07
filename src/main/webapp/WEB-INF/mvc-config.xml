@@ -5,8 +5,8 @@
  http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <mvc:annotation-driven/>
-
     <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/resources/img/**" location="/resources/img/"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">

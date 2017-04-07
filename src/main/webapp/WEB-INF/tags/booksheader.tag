@@ -29,6 +29,11 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            	<form action="#" role="search" class="navbar-form navbar-left">
+            		<div class="form-group">
+            			<input type="text" placeholder="Search" class="form-control">
+            		</div>
+            	</form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="about.html">Main</a>
@@ -39,9 +44,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        	<li>Name</li>
+                        <c:if test="${user != null}"></c:if>
+                        	<li><c:out value="${user.username}"></c:out></li>
                             <li>
-                                <a href="portfolio-1-col.html">Edit Profile</a>
+                                <a href="edit?id=${user.id}">Edit Profile</a>
                             </li>
                             <li>
                                 <a href="portfolio-4-col.html">4 Column Portfolio</a>
@@ -246,7 +252,7 @@
         interval: 5000 //changes the speed
     })
     </script>
-<div class="content-container">
+<div class="container" style="margin-top: 40px;">
     <jsp:doBody/>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

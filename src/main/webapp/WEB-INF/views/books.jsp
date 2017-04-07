@@ -19,7 +19,7 @@
 <c:forEach items="${booksList}" var="book">
         <tr>
 <td><c:out value="${book.id}"/></td>
-<td><img height="150" width="150" src="<c:out value="${book.image}"/>"/></td>
+<td><img height="150" width="150" src="<c:url value="/resources/img/${book.image}"/>"/></td>
 <td><c:out value="${book.title}"/></td>
 <td><c:out value="${book.author}"/></td>
 </tr>
