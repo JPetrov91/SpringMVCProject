@@ -15,4 +15,6 @@ public interface BooksService {
 	BooksDTO get(int id);
 	
 	List<BooksDTO> list();
+	
+	List<BooksDTO> listBySearchingName(String bookName);
 }

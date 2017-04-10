@@ -64,4 +64,9 @@ public class BooksServiceImpl implements BooksService {
 		return booksDTO;
 	}
 
+	@Override
+	public List<BooksDTO> listBySearchingName(String bookName) {
+		return booksDAO.listBySearchingName(bookName).stream().map(BooksServiceImpl :: convert).collect(Collectors.toList());
+	}
+
 }

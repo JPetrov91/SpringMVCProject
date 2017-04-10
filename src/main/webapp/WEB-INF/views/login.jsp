@@ -31,9 +31,11 @@
         <h2 class="form-heading">Log in</h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
+            <span style="color: green;">${msg}</span>
             <input name="username" type="text" class="form-control" placeholder="Username"/>
             <input name="password" type="password" class="form-control" placeholder="Password"/>
+            Remember Me: <input name="remember-me" type="checkbox" class="checkAdmin" value="true"/>
+            <br>
             <span>${error}</span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 

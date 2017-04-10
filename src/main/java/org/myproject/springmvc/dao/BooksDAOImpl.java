@@ -67,4 +67,13 @@ public class BooksDAOImpl implements BooksDAO {
         return booksList;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Book> listBySearchingName(String bookName) {
+		Session session = sessionFactory.openSession();
+		String queryString = "from Book where title LIKE('%', :bookName, '%')";
+		List<Book> booksList = session.createQuery(queryString).list();
+		return booksList;
+	}
+
 }

@@ -95,5 +95,13 @@ public class BooksController {
 		modelAndView.getModelMap().addAttribute("book", book);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchBook(@RequestParam String bookName) {
+		ModelAndView modelAndView = new ModelAndView("books");
+		List<BooksDTO> booksList = booksService.listBySearchingName(bookName);
+		modelAndView.getModelMap().addAttribute("booksList", booksList);
+		return modelAndView;
+	}
 
 }
