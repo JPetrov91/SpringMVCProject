@@ -11,6 +11,7 @@
 <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css'>
 <link href=<c:url value="/resources/css/bootstrap.min.css" /> rel="stylesheet">
 <link href=<c:url value="/resources/css/font-awesome.min.css" /> rel="stylesheet">
+<link href=<c:url value="/resources/css/style.css" /> rel="stylesheet">
 <title><c:out value="${title}"/></title>
 </head>
 <body>
@@ -50,10 +51,10 @@
                                 <a href="edit?id=${user.id}">Edit Profile</a>
                             </li>
                             <li>
-                                <a href="portfolio-4-col.html">4 Column Portfolio</a>
+                                <a href="admin">Admin Panel</a>
                             </li>
                             <li>
-                                <a href="portfolio-item.html">Exit</a>
+                                <a href="logout">Exit</a>
                             </li>
                         </ul>
                     </li>

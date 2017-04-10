@@ -1,16 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" 
-           uri="http://java.sun.com/jsp/jstl/core" %>
-           <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
-<t:layout title="Edit Idea">
-     <h1 class="text-center text-uppercase"><c:out value="${book.title}"></c:out></h1>
-     <div class="jumbotron">
-     <c:out value="${book.id}"></c:out>
-     <img height="300" width="300" src="<c:out value="${book.image}"/>"/>
-     <c:out value="${book.title}"></c:out>
-     <c:out value="${book.author}"></c:out>
-     <c:out value="${book.description}"></c:out>
-     </div>
-     </t:layout>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:booksheader title="Book">
+<div class="container">
+	<div class="book-header">
+		<h3 class="text-left"><c:out value="${book.title}"/></h3>
+		<h4 class="text-right"><c:out value="${book.author}"/></h4>
+	</div>
+	<div class="book-content">
+		<div class="book-content left-column">
+			<img alt="<c:out value="${book.title}"/>" src="<c:url value="/resources/img/${book.image}"/>"/>
+			<button type="button" class="btn btn-primary">Add to List</button>
+		</div>
+		<div class="book-content right-column">
+		<p>Year</p>
+		<p>Genres</p>
+		<p><c:out value="${book.description}"/></p>
+		</div>
+	</div>
+
+</div>
+
+</t:booksheader>

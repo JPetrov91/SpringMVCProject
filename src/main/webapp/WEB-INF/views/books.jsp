@@ -26,20 +26,36 @@
 <%-- </c:forEach> --%>
 <%-- </table> --%>
 
-<div class="row">
-<c:forEach items="${booksList}" var="book">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-    	<a href="profile?id=${book.id}">
-      		<img height="230" width="190" src="<c:url value="/resources/img/${book.image}"/>"/>
-        </a>
-      <div class="caption">
-        <h4><c:out value="${book.title}"/> </h4>
-        <p>...</p>
-      </div>
-    </div>
-  </div>
-  </c:forEach>
+<!-- <div class="row"> -->
+<%-- <c:forEach items="${booksList}" var="book"> --%>
+<!--   <div class="col-sm-6 col-md-4"> -->
+<!--     <div class="thumbnail"> -->
+<%--     	<a href="profile?id=${book.id}"> --%>
+<%--       		<img height="230" width="190" src="<c:url value="/resources/img/${book.image}"/>"/> --%>
+<!--         </a> -->
+<!--       <div class="caption"> -->
+<%--         <h4><c:out value="${book.title}"/> </h4> --%>
+<!--         <p>...</p> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<%--   </c:forEach> --%>
+<!-- </div> -->
+
+<div class="card-group">
+	<c:forEach items ="${booksList}" var="book">
+		<div class="card">
+			<a href="profile?id=${book.id}">
+      		<img height="230" width="190" src="<c:url value="/resources/img/${book.image}"/>"/>  </a>
+      		<div class="card-block">
+      			<h4 class="card-title"><c:out value="${book.title}"/></h4><br>
+      			<p class="card-text"><c:out value="${book.author}"/></p>
+      		</div>
+      		<div class="card-footer">
+      			<small class="text-muted">Added ...</small>
+      		</div>
+		</div>
+	</c:forEach>
 </div>
 
 
