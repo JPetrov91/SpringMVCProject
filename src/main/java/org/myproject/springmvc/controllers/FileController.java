@@ -26,11 +26,12 @@ public class FileController {
 			try {
 			byte[] bytes = file.getBytes();
 			name = file.getOriginalFilename();
-			String rootPath = System.getProperty("catalina.home");
+			String rootPath = "C:\\Users\\jurijs.petrovs\\workspace\\SpringMVCProject\\src\\main\\webapp\\resources\\img";
 			File dir = new File(rootPath + File.separator + "tmpFiles");
-			
+			logger.info("Trying to save into" + rootPath);
 			if (!(dir.exists())) {
 				dir.mkdirs();
+				logger.info("Directory doesnt exists");
 			}
 			
 			File uploadedFile = new File(dir.getAbsolutePath() + File.separator + name);
