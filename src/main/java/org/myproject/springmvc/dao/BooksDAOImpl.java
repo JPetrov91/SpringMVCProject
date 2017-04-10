@@ -1,8 +1,10 @@
 package org.myproject.springmvc.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.myproject.springmvc.model.Book;
@@ -71,8 +73,11 @@ public class BooksDAOImpl implements BooksDAO {
 	@Override
 	public List<Book> listBySearchingName(String bookName) {
 		Session session = sessionFactory.openSession();
-		String queryString = "from Book where title LIKE('%', :bookName, '%')";
-		List<Book> booksList = session.createQuery(queryString).list();
+		List<Book> booksList = new ArrayList<>();
+		String queryString = "from Book where title like :bookName)";
+		Query query = session.createQuery(queryString);
+		query.setParameter("bookName", "%" + bookName + "%");
+		booksList = query.list();
 		return booksList;
 	}
 
