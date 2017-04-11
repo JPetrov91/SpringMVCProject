@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		User user = userDAO.findByUsername(username);
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		
-		for(Role role : user.getRoles()) {
+		for(Role role : user.getGroup().getRoles()) {
 			authorities.add(new SimpleGrantedAuthority(role.getName()));
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);

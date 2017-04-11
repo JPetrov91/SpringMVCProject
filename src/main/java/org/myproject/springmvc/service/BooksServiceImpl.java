@@ -24,14 +24,12 @@ public class BooksServiceImpl implements BooksService {
 
 	@Override
 	public int update(BooksDTO booksDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return booksDAO.update(convert(booksDTO));
 	}
 
 	@Override
 	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return booksDAO.delete(id);
 	}
 
 	@Override

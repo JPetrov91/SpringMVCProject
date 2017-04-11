@@ -22,7 +22,7 @@ public class Role {
 	private String name;
 	
 	@ManyToMany(mappedBy = "roles")
-	private Set<User> users;
+	private Set<Group> groups;
 
 	public Role() {
 	}
@@ -42,18 +42,18 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set<User> getUsers() {
-		return users;
+	
+	public Set<Group> getGroups() {
+		return groups;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setGroups(Set<Group> groups) {
+		this.groups = groups;
 	}
 
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + ", users=" + users + "]";
+		return "Role [id=" + id + ", name=" + name + ", groups=" + groups + "]";
 	}
 
 }

@@ -7,6 +7,7 @@
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:resources mapping="/resources/img/**" location="/resources/img/"/>
+    <mvc:resources mapping="admin/resources/**" location="/resources/"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basenames">

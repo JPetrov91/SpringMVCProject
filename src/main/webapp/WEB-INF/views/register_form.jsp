@@ -25,12 +25,12 @@
 <body>
 	<h1 class="text-center text-uppercase">Register</h1>
 	<div class="container">
-		<form:form id="formRegister" method="post" modelAttribute="userForm" action="registrationSubmit">
+		<form:form id="formRegister" method="post" modelAttribute="user" action="registrationSubmit">
 			<h2 class="Registration"></h2>
 			<div class="form-group">
 				<input name="username" id="username" class="form-control" placeholder="E-Mail">
-				<input name="password" id="password" class="form-control" placeholder="Password">
-				<input name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm Password">
+				<input name="password" id="password" class="password" placeholder="Password">
+				<input name="confirmPassword" id="confirmPassword" class="password" placeholder="Confirm Password">
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Registern</button>
 			</div>
 		</form:form>

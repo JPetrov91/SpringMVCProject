@@ -39,9 +39,9 @@ public class BooksController {
 	UserService userService;
 	
 	//Method for displaying all book at page
-	@RequestMapping(value = {"/books", "/"})
+	@RequestMapping(value = {"books/books", "/"})
 	public ModelAndView books(HttpSession httpSession) {
-		ModelAndView modelAndView = new ModelAndView("books");
+		ModelAndView modelAndView = new ModelAndView("books/books");
 		//Getting authentication from SecurityContext, then from auth we getting User
 		//But for properly working we need User Model. Need to convert from UserDetails to User
 		//TODO:
@@ -64,23 +64,23 @@ public class BooksController {
 	}
 	
 	//Method for getting book by id and do some things(update/delete) with it
-	@RequestMapping(value = "/book", method = RequestMethod.GET)
+	@RequestMapping(value = "books/book", method = RequestMethod.GET)
 	public ModelAndView book(@RequestParam int id) {
-		ModelAndView modelAndView = new ModelAndView("book");
+		ModelAndView modelAndView = new ModelAndView("books/book");
 		modelAndView.getModelMap().addAttribute("book", booksService.get(id));
 		return modelAndView;
 	}
 	
 	//Method for requesting a new form for adding book
-	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
+	@RequestMapping(value = "books/addBook", method = RequestMethod.GET)
 	public ModelAndView addBook() {
-		ModelAndView modelAndView = new ModelAndView("addBook");
+		ModelAndView modelAndView = new ModelAndView("books/addBook");
 		modelAndView.getModelMap().addAttribute("newBook", new BooksDTO());
 		return modelAndView;
 	}
 	
 	//Method for adding new book into a database
-	@RequestMapping(value = "/submitBook", method = RequestMethod.POST)
+	@RequestMapping(value = "books/submitBook", method = RequestMethod.POST)
 	public ModelAndView submitBook(@ModelAttribute BooksDTO newBook) {
 		booksService.add(newBook);
 		return new ModelAndView("redirect:books");
@@ -88,17 +88,36 @@ public class BooksController {
 	
 	//User do request by clicking on book image. BookService takes all work for taking book from DB and converting it
 	//in correct format, controller puts it in ModelAndView. Must Work
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	@RequestMapping(value = "books/profile", method = RequestMethod.GET)
 	public ModelAndView bookProfile(@RequestParam int id) {
-		ModelAndView modelAndView = new ModelAndView("book");
+		ModelAndView modelAndView = new ModelAndView("books/book");
 		BooksDTO book = booksService.get(id);
 		modelAndView.getModelMap().addAttribute("book", book);
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "books/delete")
+	public ModelAndView deleteBook(@RequestParam int id) {
+		booksService.delete(id);
+		return new ModelAndView("redirect:books");
+	}
+	
+	@RequestMapping(value = "books/edit", method = RequestMethod.GET)
+	public ModelAndView updateBook(@RequestParam int id) {
+		ModelAndView modelAndView = new ModelAndView("books/edit");
+		modelAndView.getModelMap().addAttribute("book", booksService.get(id));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "books/editAction", method = RequestMethod.POST)
+	public ModelAndView editAction(@ModelAttribute BooksDTO book) {
+		booksService.update(book);
+		return new ModelAndView("redirect:books");
+	}
+	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchBook(@RequestParam String bookName) {
-		ModelAndView modelAndView = new ModelAndView("books");
+		ModelAndView modelAndView = new ModelAndView("books/books");
 		List<BooksDTO> booksList = booksService.listBySearchingName(bookName);
 		modelAndView.getModelMap().addAttribute("booksList", booksList);
 		return modelAndView;

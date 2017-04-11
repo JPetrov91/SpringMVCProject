@@ -11,13 +11,13 @@
 <body>
 <form:form id="addBook" modelAttribute="newBook" method="post" action="submitBook">
 	Title:
-	<form:input path="title"/>
+	<form:input path="title"/> <br>
 	Author:
-	<form:input path="author"/>
+	<form:input path="author"/> <br>
 	Image:
-	<form:input type="file" path="image"/>
+	<form:input type="file" path="image"/> <br>
 	Description:
-	<form:textarea path="description"/>
+	<form:textarea path="description"/> <br>
 	<form:button>Save</form:button>
 </form:form>
 <span><a href="/">Back</a></span>

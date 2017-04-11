@@ -7,6 +7,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.myproject.springmvc.model.Book;
+import org.myproject.springmvc.model.Group;
 import org.myproject.springmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -61,6 +63,25 @@ public class UserDAOImpl implements UserDAO {
 		User user = (User) session.get(User.class, id);
 		System.out.println(user);
 		return user;
+	}
+
+	@Transactional
+	@Override
+	public Group loadGroupById(long id) {
+		Session session = sessionFactory.openSession();
+		Group group = (Group) session.get(Group.class, id);
+		session.close();
+		return group;
+	}
+
+	@Transactional
+	@Override
+	public List<User> list() {
+        Session session = sessionFactory.openSession();
+        @SuppressWarnings("unchecked")
+        List<User> usersList = session.createQuery("from User").list();
+        session.close();
+        return usersList;
 	}
 
 	

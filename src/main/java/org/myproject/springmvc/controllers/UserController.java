@@ -1,8 +1,12 @@
 package org.myproject.springmvc.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.myproject.springmvc.dto.BooksDTO;
 import org.myproject.springmvc.model.User;
+import org.myproject.springmvc.service.BooksService;
 import org.myproject.springmvc.service.SecurityService;
 import org.myproject.springmvc.service.UserService;
 import org.myproject.springmvc.validator.UserValidator;
@@ -37,6 +41,9 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 	
+	@Autowired
+	private BooksService booksService;
+	
 	//TODO: IMPORTANT! To figure out with this 
 	//Responds only for login function. If receives error - display it on login form(login.jsp). Also receives a request
 	//But a little unclear - where some manipulation with User model? He didnt receives user model or its going on
@@ -63,7 +70,7 @@ public class UserController {
 	@RequestMapping(value = "registration", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView modelAndView = new ModelAndView("register_form");
-		modelAndView.getModelMap().addAttribute("userForm", new User());
+		modelAndView.getModelMap().addAttribute("user", new User());
 		return modelAndView;
 	}
 	
@@ -111,12 +118,6 @@ public class UserController {
 		userService.update(editedUser);
 		return new ModelAndView("redirect:books");
 	}
-
-	@RequestMapping(value = "/admin")
-	public ModelAndView admin() {
-		ModelAndView modelAndView = new ModelAndView("admin");
-		return modelAndView;
-	}
 	
 	@RequestMapping(value = "/user")
 	public ModelAndView user() {
@@ -142,5 +143,30 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView("welcome");
 		return modelAndView;
 	}
-
+	
+	
+	/*-----------------ADMIN PANEL PAGES------------------------- */
+	
+	
+	@RequestMapping(value = "/admin")
+	public ModelAndView admin() {
+		ModelAndView modelAndView = new ModelAndView("admin/main");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin/users")
+	public ModelAndView adminEditUsers() {
+		ModelAndView modelAndView = new ModelAndView("admin/users");
+		List<User> usersList = userService.list();
+		modelAndView.getModelMap().addAttribute("usersList",usersList);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin/books")
+	public ModelAndView adminEditBooks() {
+		ModelAndView modelAndView = new ModelAndView("admin/books");
+		List<BooksDTO> booksList = booksService.list();
+		modelAndView.getModelMap().addAttribute("booksList", booksList);
+		return modelAndView;
+	}
 }
