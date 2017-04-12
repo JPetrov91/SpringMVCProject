@@ -74,7 +74,7 @@ public class IdeasDAOImpl implements IdeasDAO {
 	public boolean registerUser(User user) {
 		Session session = sessionFactory.openSession();
 		//WHAT!??
-		Serializable id = session.save(user);
+		session.save(user);
 		return true;
 	}
 

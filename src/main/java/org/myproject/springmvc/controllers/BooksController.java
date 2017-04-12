@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.myproject.springmvc.dto.BooksDTO;
 import org.myproject.springmvc.model.Book;
+import org.myproject.springmvc.model.Comment;
 import org.myproject.springmvc.model.User;
 import org.myproject.springmvc.service.BooksService;
 import org.myproject.springmvc.service.UserService;
@@ -93,6 +94,8 @@ public class BooksController {
 		ModelAndView modelAndView = new ModelAndView("books/book");
 		BooksDTO book = booksService.get(id);
 		modelAndView.getModelMap().addAttribute("book", book);
+		//Adding a new form for comments at book page. Maybe works
+		//modelAndView.getModelMap().addAttribute("commentForm", new Comment());
 		return modelAndView;
 	}
 	

@@ -8,7 +8,7 @@ public interface CommentsDAO {
 	
 	void add(Comment comment);
 	
-	void delete(Comment comment);
+	void delete(int id);
 	
 	Comment get(int id);
 	
