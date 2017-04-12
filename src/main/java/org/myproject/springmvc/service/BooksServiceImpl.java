@@ -1,13 +1,13 @@
 package org.myproject.springmvc.service;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.myproject.springmvc.dao.BooksDAO;
 import org.myproject.springmvc.dto.BooksDTO;
-import org.myproject.springmvc.dto.IdeaDTO;
 import org.myproject.springmvc.model.Book;
-import org.myproject.springmvc.model.Idea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,12 +59,22 @@ public class BooksServiceImpl implements BooksService {
 		booksDTO.setAuthor(bookModel.getAuthor());
 		booksDTO.setDescription(bookModel.getDescription());
 		booksDTO.setImage(bookModel.getImage());
+		booksDTO.setRating(bookModel.getRating());
 		return booksDTO;
 	}
 
 	@Override
 	public List<BooksDTO> listBySearchingName(String bookName) {
 		return booksDAO.listBySearchingName(bookName).stream().map(BooksServiceImpl :: convert).collect(Collectors.toList());
+	}
+
+	@Override
+	public void rateBook(int bookId, int bookEvaluation) {
+		Book book = booksDAO.get(bookId);
+		book.setEvaluationSum(book.getEvaluationSum() + bookEvaluation);
+		book.setEvaluationQuant(book.getEvaluationQuant() + 1);
+		book.setRating(book.getEvaluationSum()/book.getEvaluationQuant());
+		booksDAO.update(book);
 	}
 
 }

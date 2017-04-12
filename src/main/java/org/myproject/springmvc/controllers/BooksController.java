@@ -122,5 +122,12 @@ public class BooksController {
 		modelAndView.getModelMap().addAttribute("booksList", booksList);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/books/ratebook")
+	public ModelAndView rateBook(@RequestParam int id, int bookEvaluation) {
+		//In this moment bookDTO is null. Why? RateFrom doesnt get Book model from Book page, but on Book page we have this Model.
+		booksService.rateBook(id, bookEvaluation);
+		return new ModelAndView("books/books");
+	}
 
 }

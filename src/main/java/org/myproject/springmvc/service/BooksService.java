@@ -17,4 +17,6 @@ public interface BooksService {
 	List<BooksDTO> list();
 	
 	List<BooksDTO> listBySearchingName(String bookName);
+
+	void rateBook(int bookId, int bookEvaluation);
 }

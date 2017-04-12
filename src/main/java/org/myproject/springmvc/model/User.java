@@ -1,5 +1,6 @@
 package org.myproject.springmvc.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -32,15 +34,12 @@ public class User {
 	@Transient
 	private String confirmPassword;
 	
-	//Set of user roles, what we store in database
-//	@ManyToMany
-//	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), 
-//	inverseJoinColumns = @JoinColumn(name = "role_id"))
-//	private Set<Role> roles;
-	
 	@ManyToOne
 	@JoinColumn(name = "group_id")
 	private Group group;
+	
+	@OneToMany(mappedBy = "author")
+	private List<Comment> comments;
 
 	public long getId() {
 		return id;

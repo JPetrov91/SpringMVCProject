@@ -1,10 +1,13 @@
 package org.myproject.springmvc.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +31,16 @@ public class Book {
 	private String description;
 	
 	@Column
+	private int evaluationSum;
+	
+	@Column
+	private int evaluationQuant;
+	
+	@Column
 	private double rating;
+	
+	@OneToMany(mappedBy = "book")
+	private List<Comment> comments;
 
 	public int getId() {
 		return id;
@@ -77,6 +89,29 @@ public class Book {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
+
+	public int getEvaluationSum() {
+		return evaluationSum;
+	}
+
+	public void setEvaluationSum(int evaluationSum) {
+		this.evaluationSum = evaluationSum;
+	}
+
+	public int getEvaluationQuant() {
+		return evaluationQuant;
+	}
+
+	public void setEvaluationQuant(int evaluationQuant) {
+		this.evaluationQuant = evaluationQuant;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 }

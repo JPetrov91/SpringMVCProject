@@ -1,4 +1,5 @@
 .book-content {
+	display: table-cell;
 }
 .book-content .left-column {
 	width: 30%;
