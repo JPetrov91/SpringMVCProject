@@ -44,4 +44,6 @@
 
 </div>
 
+<t:comments></t:comments>
+
 </t:booksheader>

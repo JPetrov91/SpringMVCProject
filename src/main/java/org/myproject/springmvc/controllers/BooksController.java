@@ -10,6 +10,7 @@ import org.myproject.springmvc.model.Book;
 import org.myproject.springmvc.model.Comment;
 import org.myproject.springmvc.model.User;
 import org.myproject.springmvc.service.BooksService;
+import org.myproject.springmvc.service.CommentsService;
 import org.myproject.springmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,6 +40,9 @@ public class BooksController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	CommentsService commentsService;
+	
 	//Method for displaying all book at page
 	@RequestMapping(value = {"books/books", "/"})
 	public ModelAndView books(HttpSession httpSession) {
@@ -65,12 +69,13 @@ public class BooksController {
 	}
 	
 	//Method for getting book by id and do some things(update/delete) with it
-	@RequestMapping(value = "books/book", method = RequestMethod.GET)
-	public ModelAndView book(@RequestParam int id) {
-		ModelAndView modelAndView = new ModelAndView("books/book");
-		modelAndView.getModelMap().addAttribute("book", booksService.get(id));
-		return modelAndView;
-	}
+//	@RequestMapping(value = "books/book", method = RequestMethod.GET)
+//	public ModelAndView book(@RequestParam int id) {
+//		ModelAndView modelAndView = new ModelAndView("books/book");
+//		modelAndView.getModelMap().addAttribute("book", booksService.get(id));
+//		modelAndView.getModelMap().addAttribute("commentsList", commentsList);
+//		return modelAndView;
+//	}
 	
 	//Method for requesting a new form for adding book
 	@RequestMapping(value = "books/addBook", method = RequestMethod.GET)
@@ -93,9 +98,11 @@ public class BooksController {
 	public ModelAndView bookProfile(@RequestParam int id) {
 		ModelAndView modelAndView = new ModelAndView("books/book");
 		BooksDTO book = booksService.get(id);
+		List<Comment> commentsList = commentsService.listByBook(id);
 		modelAndView.getModelMap().addAttribute("book", book);
 		//Adding a new form for comments at book page. Maybe works
-		//modelAndView.getModelMap().addAttribute("commentForm", new Comment());
+		modelAndView.getModelMap().addAttribute("comment", new Comment());
+		modelAndView.getModelMap().addAttribute("commentsList", commentsList);
 		return modelAndView;
 	}
 	
@@ -131,6 +138,13 @@ public class BooksController {
 		//In this moment bookDTO is null. Why? RateFrom doesnt get Book model from Book page, but on Book page we have this Model.
 		booksService.rateBook(id, bookEvaluation);
 		return new ModelAndView("books/books");
+	}
+	
+	@RequestMapping(value = "/books/submit_comment")
+	public ModelAndView addComment(@ModelAttribute Comment comment, @RequestParam int bookId, int userId) {
+		ModelAndView modelAndView = new ModelAndView("books/books");
+		commentsService.add(comment, bookId, userId);
+		return modelAndView;
 	}
 
 }

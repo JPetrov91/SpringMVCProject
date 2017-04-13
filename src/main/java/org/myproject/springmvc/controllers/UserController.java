@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -142,6 +143,14 @@ public class UserController {
 	public ModelAndView welcome() {
 		ModelAndView modelAndView = new ModelAndView("welcome");
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/checkPassword", method = RequestMethod.GET, produces = {"text/html; charset=UTF-8"})
+	public @ResponseBody
+	String checkPassword(@RequestParam String password, String confirmPassword) {
+		if (password.equals(confirmPassword)) {
+			return "Passwords match";
+		} else return "Passwords don't match";
 	}
 	
 	

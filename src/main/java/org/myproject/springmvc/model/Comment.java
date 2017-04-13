@@ -34,12 +34,78 @@ public class Comment {
 	private Book book;
 	
 	@Column
-	private Date date;
+	private String publicationDate;
 	
 	@Column
 	private int likes;
 	
 	@Column
 	private int dislikes;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public String getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(String publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
+	public int getDislikes() {
+		return dislikes;
+	}
+
+	public void setDislikes(int dislikes) {
+		this.dislikes = dislikes;
+	}
+	
+	
 
 }
