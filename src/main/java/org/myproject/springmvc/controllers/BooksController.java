@@ -78,6 +78,7 @@ public class BooksController {
 //	}
 	
 	//Method for requesting a new form for adding book
+	
 	@RequestMapping(value = "books/addBook", method = RequestMethod.GET)
 	public ModelAndView addBook() {
 		ModelAndView modelAndView = new ModelAndView("books/addBook");

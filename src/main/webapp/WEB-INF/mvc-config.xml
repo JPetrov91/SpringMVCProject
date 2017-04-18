@@ -17,14 +17,30 @@
         </property>
     </bean>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix">
-            <value>/WEB-INF/views/</value>
-        </property>
-        <property name="suffix">
-            <value>.jsp</value>
-        </property>
-    </bean>
+<!--     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!--         <property name="prefix"> -->
+<!--             <value>/WEB-INF/views/</value> -->
+<!--         </property> -->
+<!--         <property name="suffix"> -->
+<!--             <value>.jsp</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+
+	<bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/WEB-INF/templates/"></property>
+		<property name="suffix" value=".html"></property>
+		<property name="templateMode" value="HTML"></property>
+		<property name="cacheable" value="false"></property>
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver"></property>
+		<property name="enableSpringELCompiler" value="true"></property>
+	</bean>
+	
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine"></property>
+	</bean>
     
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     	<property name="maxUploadSize" value="10000"></property>
