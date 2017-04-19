@@ -43,10 +43,16 @@ public class BooksController {
 	@Autowired
 	CommentsService commentsService;
 	
+	
+	@RequestMapping(value = "/")
+	public ModelAndView mainPage() {
+		return new ModelAndView("redirect:books"); 
+	}
+	
 	//Method for displaying all book at page
-	@RequestMapping(value = {"books/books", "/"})
+	@RequestMapping(value = "/books")
 	public ModelAndView books(HttpSession httpSession) {
-		ModelAndView modelAndView = new ModelAndView("books/books");
+		ModelAndView modelAndView = new ModelAndView("books");
 		//Getting authentication from SecurityContext, then from auth we getting User
 		//But for properly working we need User Model. Need to convert from UserDetails to User
 		//TODO:
@@ -95,9 +101,9 @@ public class BooksController {
 	
 	//User do request by clicking on book image. BookService takes all work for taking book from DB and converting it
 	//in correct format, controller puts it in ModelAndView. Must Work
-	@RequestMapping(value = "books/profile", method = RequestMethod.GET)
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public ModelAndView bookProfile(@RequestParam int id) {
-		ModelAndView modelAndView = new ModelAndView("books/book");
+		ModelAndView modelAndView = new ModelAndView("book");
 		BooksDTO book = booksService.get(id);
 		List<Comment> commentsList = commentsService.listByBook(id);
 		modelAndView.getModelMap().addAttribute("book", book);
@@ -134,16 +140,16 @@ public class BooksController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/books/ratebook")
+	@RequestMapping(value = "/ratebook")
 	public ModelAndView rateBook(@RequestParam int id, int bookEvaluation) {
 		//In this moment bookDTO is null. Why? RateFrom doesnt get Book model from Book page, but on Book page we have this Model.
 		booksService.rateBook(id, bookEvaluation);
-		return new ModelAndView("books/books");
+		return new ModelAndView("books");
 	}
 	
-	@RequestMapping(value = "/books/submit_comment")
+	@RequestMapping(value = "/submit_comment")
 	public ModelAndView addComment(@ModelAttribute Comment comment, @RequestParam int bookId, int userId) {
-		ModelAndView modelAndView = new ModelAndView("books/books");
+		ModelAndView modelAndView = new ModelAndView("books");
 		commentsService.add(comment, bookId, userId);
 		return modelAndView;
 	}

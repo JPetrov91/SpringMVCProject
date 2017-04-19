@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="template :: header">
+<title>Books</title>
+</head>
+<body>
+<nav th:replace="template :: navigation-bar"></nav>
+<div class="container">
+	<div class="book-header">
+		<h3 class="text-left" th:text="${book.title}"></h3>
+		<h4 class="text-right" th:text=${book.author}></h4>
+	</div>
+	<div class="book-content">
+		<div class="book-content left-column">
+			<img alt="fgh" th:src="@{|/resources/img/${book.image}|}">
+			<button type="button" class="btn btn-primary">Add to List</button>
+		</div>
+		<div class="book-content right-column">
+			<p>Year</p>
+			<p>Genres</p>
+			<p th:text="${book.description}"></p>
+			<span th:text="${book.rating}"></span>
+<!-- 			Change rating to Model-System, when rating attribute will be Model -->
+			<form action="#" th:action="@{/ratebook}" method="post">
+				<select name="bookEvaluation">
+					<option value="None">SELECT</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+				<input type="hidden" name="id" th:value=${book.id}>
+				<button type="submit">Rate</button>
+			</form>
+			
+		</div>
+	</div>
+	
+	<div th:replace="template :: comments"></div>
+</div>
+
+</body>
+</html>
