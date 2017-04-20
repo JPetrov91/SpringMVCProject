@@ -108,7 +108,7 @@ public class UserController {
 	//Mapping for Profile Editor
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editProfile(@RequestParam long id) {
-		ModelAndView modelAndView = new ModelAndView("editProfile");
+		ModelAndView modelAndView = new ModelAndView("EditProfile");
 		User user = userService.getById(id);
 		modelAndView.getModelMap().addAttribute("editedUser", user);
 		return modelAndView;

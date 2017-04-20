@@ -1,10 +1,13 @@
 package org.myproject.springmvc.controllers;
 
 
+
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.junit.runner.Request;
 import org.myproject.springmvc.dto.BooksDTO;
 import org.myproject.springmvc.model.Book;
 import org.myproject.springmvc.model.Comment;
@@ -134,24 +137,25 @@ public class BooksController {
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView searchBook(@RequestParam String bookName) {
-		ModelAndView modelAndView = new ModelAndView("books/books");
+		ModelAndView modelAndView = new ModelAndView("books");
 		List<BooksDTO> booksList = booksService.listBySearchingName(bookName);
 		modelAndView.getModelMap().addAttribute("booksList", booksList);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/ratebook")
-	public ModelAndView rateBook(@RequestParam int id, int bookEvaluation) {
+	public ModelAndView rateBook(@RequestParam int id, int bookEvaluation, HttpServletRequest request) {
 		//In this moment bookDTO is null. Why? RateFrom doesnt get Book model from Book page, but on Book page we have this Model.
 		booksService.rateBook(id, bookEvaluation);
-		return new ModelAndView("books");
+		String referer = request.getHeader("Referer");
+		return new ModelAndView("redirect:" + referer);
 	}
 	
 	@RequestMapping(value = "/submit_comment")
-	public ModelAndView addComment(@ModelAttribute Comment comment, @RequestParam int bookId, int userId) {
-		ModelAndView modelAndView = new ModelAndView("books");
+	public ModelAndView addComment(@ModelAttribute Comment comment, @RequestParam int bookId, int userId, HttpServletRequest request) {
 		commentsService.add(comment, bookId, userId);
-		return modelAndView;
+		String referer = request.getHeader("Referer");
+		return new ModelAndView("redirect:" + referer);
 	}
 
 }

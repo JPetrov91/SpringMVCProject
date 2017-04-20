@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
 		String encodedPassword = passwordEncoder.encode(password);
 		user.setPassword(encodedPassword);
 		user.setGroup(group);
-		userDAO.save(user);
-		
+		user.setNickname(user.getUsername());
+		userDAO.save(user);	
 	}
 
 	@Override

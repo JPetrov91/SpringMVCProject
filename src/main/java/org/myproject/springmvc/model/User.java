@@ -28,6 +28,9 @@ public class User {
 	@Column(name = "username")
 	private String username;
 	
+	@Column(name = "nickname")
+	private String nickname;
+	
 	@Column(name = "password")
 	private String password;
 	
@@ -79,6 +82,22 @@ public class User {
 
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 	
 
