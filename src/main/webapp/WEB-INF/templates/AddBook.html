@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head th:replace="template :: header">
+<title>Add new Book</title>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+	<form class="form-horizontal" action="" th:action="@{addBook}" th:object="${newBook}" method="post">
+		<div class="form-group">
+  			<label class="col-md-4 control-label" for="bookTitle">Title</label>  
+  			<div class="col-md-5">
+  				<input type="text" placeholder="Book title" th:field="*{title}" class="form-control input-md">  
+        	</div>  
+		</div>
+		<div class="form-group">
+  			<label class="col-md-4 control-label" for="bookAuthor">Author</label>  
+  			<div class="col-md-5">
+  				<input type="text" placeholder="Book author" th:field="*{author}" class="form-control input-md">  
+        	</div>  
+		</div>
+		<div class="form-group">
+  			<label class="col-md-4 control-label" for="bookDescription">Book Description</label>  
+  			<div class="col-md-5">
+  				<textarea class="form-control" placeholder="Book description" rows="5" th:field="*{description}"></textarea> 
+        	</div>  
+		</div>
+		<label>Book Genres</label>
+		<table>
+			<thead>
+				<tr>
+					<th th:text="Number">Number</th>
+					<th th:text="Genre">Genre</th>
+					<th>
+						<button type="submit" name="addGenre" >Add Genre</button>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="genre,genreStat : *{genres}">
+					<td th:text="${genreStat.count}">1</td>
+					<td>
+						<select th:field="*{genres[_${genresStat.index}_].genre}">
+<!-- 						Displaying all varieties from database, for-each -->
+							<option th:each="var : ${allGenres}"
+							th:value="${var.id}"
+							th:text="${var.name}"> </option>
+						</select>
+					</td>
+					<td>
+						<input type="text" th:field="*{genres[_${genreStat.index}_].seedsPerCell}"/>
+					</td>
+					<td>
+						<button type="submit" name="removeGenre" th:value="${genreStat.index}" >Remove Row</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="form-group" style="">
+			<button type="submit" class="btn btn-primary btn-block">Add Book</button>
+		</div>	
+	</form>
+	</div>
+</div>
+
+</body>
+</html>

@@ -45,6 +45,7 @@ public class UserController {
 	@Autowired
 	private BooksService booksService;
 	
+	
 	//TODO: IMPORTANT! To figure out with this 
 	//Responds only for login function. If receives error - display it on login form(login.jsp). Also receives a request
 	//But a little unclear - where some manipulation with User model? He didnt receives user model or its going on
@@ -60,6 +61,12 @@ public class UserController {
 		}
 		if (logout != null) {
 			modelAndView.addObject("msg", "You've been logged out succesfully.");
+		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			String username = authentication.getName();
+			User user = userService.findByUsername(username);
+			modelAndView.addObject("user", user);
 		}
 		//modelMap.addAttribute("")
 		

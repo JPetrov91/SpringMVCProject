@@ -1,7 +1,5 @@
 package org.myproject.springmvc.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +47,7 @@ public class BooksServiceImpl implements BooksService {
 		bookModel.setAuthor(booksDTO.getAuthor());
 		bookModel.setDescription(booksDTO.getDescription());
 		bookModel.setImage(booksDTO.getImage());
+		bookModel.setGenres(booksDTO.getGenres());
 		return bookModel;
 	}
 	
@@ -60,6 +59,7 @@ public class BooksServiceImpl implements BooksService {
 		booksDTO.setDescription(bookModel.getDescription());
 		booksDTO.setImage(bookModel.getImage());
 		booksDTO.setRating(bookModel.getRating());
+		booksDTO.setGenres(bookModel.getGenres());
 		return booksDTO;
 	}
 

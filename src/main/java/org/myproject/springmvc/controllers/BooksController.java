@@ -11,9 +11,11 @@ import org.junit.runner.Request;
 import org.myproject.springmvc.dto.BooksDTO;
 import org.myproject.springmvc.model.Book;
 import org.myproject.springmvc.model.Comment;
+import org.myproject.springmvc.model.Genre;
 import org.myproject.springmvc.model.User;
 import org.myproject.springmvc.service.BooksService;
 import org.myproject.springmvc.service.CommentsService;
+import org.myproject.springmvc.service.GenresService;
 import org.myproject.springmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +49,9 @@ public class BooksController {
 	@Autowired
 	CommentsService commentsService;
 	
+	@Autowired
+	GenresService genresService;
+	
 	
 	@RequestMapping(value = "/")
 	public ModelAndView mainPage() {
@@ -67,10 +73,11 @@ public class BooksController {
 		//Works. But only after visiting "/" page, when session gets user attribute
 		//Need to change in something way.
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User user = null;
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			String userName = authentication.getName();
-			User user = userService.findByUsername(userName);
-			httpSession.setAttribute("user", user);
+			user = userService.findByUsername(userName);
+			modelAndView.addObject("user", user);
 		}
 		List<BooksDTO> booksList = booksService.list();
 		modelAndView.getModelMap().addAttribute("booksList", booksList);
@@ -88,15 +95,15 @@ public class BooksController {
 	
 	//Method for requesting a new form for adding book
 	
-	@RequestMapping(value = "books/addBook", method = RequestMethod.GET)
+	@RequestMapping(value = "addBook", method = RequestMethod.GET)
 	public ModelAndView addBook() {
-		ModelAndView modelAndView = new ModelAndView("books/addBook");
+		ModelAndView modelAndView = new ModelAndView("AddBook");
 		modelAndView.getModelMap().addAttribute("newBook", new BooksDTO());
 		return modelAndView;
 	}
 	
 	//Method for adding new book into a database
-	@RequestMapping(value = "books/submitBook", method = RequestMethod.POST)
+	@RequestMapping(value = "addBook", params = {"save"})
 	public ModelAndView submitBook(@ModelAttribute BooksDTO newBook) {
 		booksService.add(newBook);
 		return new ModelAndView("redirect:books");
@@ -156,6 +163,24 @@ public class BooksController {
 		commentsService.add(comment, bookId, userId);
 		String referer = request.getHeader("Referer");
 		return new ModelAndView("redirect:" + referer);
+	}
+	
+	@ModelAttribute("allGenres")
+	public List<Genre> populateGenres() {
+		return this.genresService.findAll();
+	}
+	
+	@RequestMapping(value = "/addBook", params={"addGenre"})
+	public String addGenre(BooksDTO booksDTO, BindingResult bindingResult) {
+		booksDTO.getGenres().add(new Genre());
+		return "AddBook";
+	}
+	
+	@RequestMapping(value = "/addBook", params={"removeGenre"})
+	public String removeGenre(BooksDTO booksDTO, BindingResult bindingResult, HttpServletRequest request) {
+		Integer genreId = Integer.valueOf(request.getParameter("removeGenre"));
+		booksDTO.getGenres().remove(genreId.intValue());
+		return "AddBook";
 	}
 
 }

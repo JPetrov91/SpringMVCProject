@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.context.annotation.Scope;
+
 @Entity
 @Table(name="users")
 public class User {
