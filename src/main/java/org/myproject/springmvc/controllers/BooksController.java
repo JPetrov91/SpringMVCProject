@@ -98,14 +98,14 @@ public class BooksController {
 	@RequestMapping(value = "addBook", method = RequestMethod.GET)
 	public ModelAndView addBook() {
 		ModelAndView modelAndView = new ModelAndView("AddBook");
-		modelAndView.getModelMap().addAttribute("newBook", new BooksDTO());
+		modelAndView.getModelMap().addAttribute("book", new BooksDTO());
 		return modelAndView;
 	}
 	
 	//Method for adding new book into a database
 	@RequestMapping(value = "addBook", params = {"save"})
-	public ModelAndView submitBook(@ModelAttribute BooksDTO newBook) {
-		booksService.add(newBook);
+	public ModelAndView submitBook(@ModelAttribute BooksDTO book) {
+		booksService.add(book);
 		return new ModelAndView("redirect:books");
 	}
 	
@@ -167,20 +167,24 @@ public class BooksController {
 	
 	@ModelAttribute("allGenres")
 	public List<Genre> populateGenres() {
-		return this.genresService.findAll();
+		List<Genre> allGenres = genresService.findAll();
+		return allGenres;
 	}
 	
 	@RequestMapping(value = "/addBook", params={"addGenre"})
-	public String addGenre(BooksDTO booksDTO, BindingResult bindingResult) {
-		booksDTO.getGenres().add(new Genre());
+	public String addGenre(BooksDTO book, BindingResult bindingResult, ModelMap modelMap) {
+		book.getGenres().add(new Genre());
+		modelMap.addAttribute("book", book);
 		return "AddBook";
 	}
 	
 	@RequestMapping(value = "/addBook", params={"removeGenre"})
-	public String removeGenre(BooksDTO booksDTO, BindingResult bindingResult, HttpServletRequest request) {
+	public String removeGenre(BooksDTO book, BindingResult bindingResult, ModelMap modelMap, HttpServletRequest request) {
 		Integer genreId = Integer.valueOf(request.getParameter("removeGenre"));
-		booksDTO.getGenres().remove(genreId.intValue());
+		book.getGenres().remove(genreId.intValue());
+		modelMap.addAttribute("book", book);
 		return "AddBook";
 	}
 
 }
+

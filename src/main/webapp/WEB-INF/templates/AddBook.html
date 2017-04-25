@@ -6,7 +6,7 @@
 <body>
 <div class="container">
 	<div class="row">
-	<form class="form-horizontal" action="" th:action="@{addBook}" th:object="${newBook}" method="post">
+	<form class="form-horizontal" action="" th:action="@{addBook}" th:object="${book}" method="post">
 		<div class="form-group">
   			<label class="col-md-4 control-label" for="bookTitle">Title</label>  
   			<div class="col-md-5">
@@ -40,15 +40,12 @@
 				<tr th:each="genre,genreStat : *{genres}">
 					<td th:text="${genreStat.count}">1</td>
 					<td>
-						<select th:field="*{genres[_${genresStat.index}_].genre}">
-<!-- 						Displaying all varieties from database, for-each -->
+						<select th:field="*{genres[__${genreStat.index}__]}">
+<!-- 						Displaying all varieties from database, for-each, every object have id and name in the select block -->
 							<option th:each="var : ${allGenres}"
 							th:value="${var.id}"
 							th:text="${var.name}"> </option>
 						</select>
-					</td>
-					<td>
-						<input type="text" th:field="*{genres[_${genreStat.index}_].seedsPerCell}"/>
 					</td>
 					<td>
 						<button type="submit" name="removeGenre" th:value="${genreStat.index}" >Remove Row</button>

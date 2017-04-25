@@ -1,5 +1,6 @@
 package org.myproject.springmvc.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.myproject.springmvc.model.Genre;
@@ -12,7 +13,7 @@ public class BooksDTO {
 	private String image;
 	private String description;
 	private double rating;
-	private List<Genre> genres;
+	private List<Genre> genres = new ArrayList<Genre>();
 	
 	public int getId() {
 		return id;
