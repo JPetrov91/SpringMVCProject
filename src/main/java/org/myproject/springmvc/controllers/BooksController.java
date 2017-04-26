@@ -104,8 +104,9 @@ public class BooksController {
 	
 	//Method for adding new book into a database
 	@RequestMapping(value = "addBook", params = {"save"})
-	public ModelAndView submitBook(@ModelAttribute BooksDTO book) {
+	public ModelAndView submitBook(BooksDTO book, BindingResult bindingResult, ModelMap modelMap) {
 		booksService.add(book);
+		modelMap.clear();
 		return new ModelAndView("redirect:books");
 	}
 	

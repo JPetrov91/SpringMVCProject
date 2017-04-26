@@ -18,7 +18,9 @@
 		</div>
 		<div class="book-content right-column">
 			<p>Year</p>
-			<p>Genres</p>
+			<p th:each="genre : *{book.genres}" th:text="${genre.name}">Genres
+<!-- 				<span th:text="${genre.name}"></span> -->
+			</p>
 			<p th:text="${book.description}"></p>
 			<span th:text="${book.rating}"></span>
 <!-- 			Change rating to Model-System, when rating attribute will be Model -->
